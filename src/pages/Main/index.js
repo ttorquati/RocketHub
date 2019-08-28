@@ -5,7 +5,7 @@ import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
-import { Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List, ErrorMessage } from './styles';
 import Container from '../../components/container/index';
 
 export default class Main extends Component {
@@ -13,6 +13,7 @@ export default class Main extends Component {
     newRepo: '',
     repos: [],
     loading: false,
+    errorMessage: '',
   };
 
   componentDidMount() {
@@ -32,28 +33,49 @@ export default class Main extends Component {
   }
 
   handleInputChange = e => {
-    this.setState({ newRepo: e.target.value });
+    this.setState({ newRepo: e.target.value, errorMessage: '' });
   };
 
   handleSubmit = async e => {
     e.preventDefault();
+
     this.setState({ loading: true });
 
     const { newRepo, repos } = this.state;
 
-    const res = await api.get(`/repos/${newRepo}`);
-
-    const data = { name: res.data.full_name };
-
-    this.setState({
-      repos: [...repos, data],
-      newRepo: '',
-      loading: false,
+    const repoExists = repos.filter(repo => {
+      return repo.name === newRepo;
     });
+
+    if (repoExists.length) {
+      this.setState({
+        loading: false,
+        errorMessage: 'Repository already added.',
+      });
+
+      return;
+    }
+
+    try {
+      const res = await api.get(`/repos/${newRepo}`);
+
+      const data = { name: res.data.full_name };
+
+      this.setState({
+        repos: [...repos, data],
+        newRepo: '',
+        loading: false,
+      });
+    } catch (err) {
+      this.setState({
+        loading: false,
+        errorMessage: 'Repository not found.',
+      });
+    }
   };
 
   render() {
-    const { newRepo, loading, repos } = this.state;
+    const { newRepo, loading, repos, errorMessage } = this.state;
 
     return (
       <Container>
@@ -62,7 +84,10 @@ export default class Main extends Component {
           Repositories
         </h1>
 
-        <Form onSubmit={this.handleSubmit}>
+        <Form
+          onSubmit={this.handleSubmit}
+          isError={errorMessage ? true : false}
+        >
           <input
             type="text"
             placeholder="Add a repository"
@@ -79,12 +104,14 @@ export default class Main extends Component {
           </SubmitButton>
         </Form>
 
+        <ErrorMessage>{errorMessage}</ErrorMessage>
+
         <List>
           {repos.map(repo => (
             <li key={repo.name}>
               {repo.name}{' '}
               <Link to={`/repository/${encodeURIComponent(repo.name)}`}>
-                Detalhes
+                Details
               </Link>
             </li>
           ))}

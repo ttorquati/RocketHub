@@ -7,7 +7,7 @@ export const Form = styled.form`
 
   input {
     flex: 1;
-    border: 1px solid #eee;
+    border: 1px solid ${props => (props.isError ? '#f00' : '#eee')};
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
@@ -72,4 +72,10 @@ export const List = styled.ul`
       text-decoration: none;
     }
   }
+`;
+
+export const ErrorMessage = styled.span`
+  line-height: 2;
+  padding-left: 4px;
+  color: #f00;
 `;

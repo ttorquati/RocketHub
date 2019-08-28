@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-import { FaSpinner } from 'react-icons/fa';
+import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
 
 import { Carregando, Owner, IssueList } from './styles';
 import Container from '../../components/container/index';
@@ -56,7 +56,10 @@ export default class Repository extends Component {
     return (
       <Container>
         <Owner>
-          <Link to="/">Back to repositories</Link>
+          <Link to="/">
+            <FaArrowLeft size={18} />
+            Back to repositories
+          </Link>
           <img src={repo.owner.avatar_url} alt={repo.owner.name} />
           <h1>{repo.name}</h1>
           <p>{repo.description}</p>
