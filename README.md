@@ -21,9 +21,9 @@ Type the repository you want to add to the list
 
 ### `:repository_owner/:repository_name`
 
-[[https://github.com/ttorquati/RocketHub/blob/master/Screenshot_1.png|alt=RocketHub]]
+![RocketHub](https://github.com/ttorquati/RocketHub/blob/master/Screenshot_1.png)
 
 Check the repository details to see the issues.
 
-[[https://github.com/ttorquati/RocketHub/blob/master/Screenshot_2.png|alt=RocketHub]]
+![RocketHub](https://github.com/ttorquati/RocketHub/blob/master/Screenshot_2.png)
 
