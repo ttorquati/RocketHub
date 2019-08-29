@@ -15,4 +15,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
+## RocketHub
+
+Type the repository you want to add to the list
+
+### `:repository_owner/:repository_name`
+
+[[https://github.com/ttorquati/RocketHub/blob/master/Screenshot_1.png|alt=RocketHub]]
+
+Check the repository details to see the issues.
+
+[[https://github.com/ttorquati/RocketHub/blob/master/Screenshot_2.png|alt=RocketHub]]
 
